@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Maps</title>
+
+    <style>
+      #map-canvas{
+        width: 1500px;
+        height: 700px;
+      }
+    </style>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6E-eC-vAgq3HroiLhTkZKKz19CDQj79U&libraries=places"
+      type="text/javascript"></script>
+
+  </head>
+
+  <body>
+    <div id="map-canvas"></div>
+
+    <script>
+
+      var rendererOptions = {
+        suppressMarkers: true,
+      };
+
+      var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+      // var directionsDisplay = new google.maps.DirectionsRenderer();
+      var directionsService = new google.maps.DirectionsService();
+
+      var map;
+
+      var start = new google.maps.LatLng( 44.721614, 18.821829 );
+      var center = new google.maps.LatLng( 44.682440, 18.893983 );
+
+      var mapOptions = {
+        zoom: 12,
+        center: center
+      };
+
+      map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+      directionsDisplay.setMap(map);
+
+      function calculateRoute(){
+
+        var request = {
+          origin: start,
+          destination: start,
+          waypoints: [
+          {
+            location: ' 44.711016, 18.880701 ',
+            stopover: false
+          },
+          {
+            location: ' 44.705822, 18.959390 ',
+            stopover: false
+          },
+          {
+            location: ' 44.699450, 18.948753 ',
+            stopover: false
+          },
+          {
+            location: ' 44.698697, 18.972577 ',
+            stopover: false
+          },
+          {
+            location: ' 44.688783, 18.990638 ',
+            stopover: false
+          },
+          {
+            location: ' 44.684792, 19.028937 ',
+            stopover: false
+          },
+          {
+            location: ' 44.626014, 19.020609 ',
+            stopover: false
+          },
+          {
+            location: ' 44.602403, 18.988485 ',
+            stopover: false
+          },
+          {
+            location: ' 44.595199, 18.991446 ',
+            stopover: false
+          },
+          // directions around lake, route can not be executed because of not connected way
+          {
+            location: ' 44.634146, 18.880727 ',
+            stopover: false
+          }],
+          travelMode: 'WALKING'
+        }
+
+        directionsService.route(request, function(result, status){
+
+          directionsDisplay.setDirections(result);
+
+        });
+
+      };
+
+      calculateRoute();
+
+      function addMarker(LatLng, title, raw_icon){
+
+        var icon = {
+          url: raw_icon, // url
+          scaledSize: new google.maps.Size(30, 30), // scaled size
+          // origin: new google.maps.Point(0,0), // origin
+          // anchor: new google.maps.Point(0, 0) // anchor
+        };
+        
+        var marker = new google.maps.Marker({
+          position: LatLng,
+          title: title,
+          icon: icon
+        });
+        marker.setMap(map);
+      }
+
+      addMarker(new google.maps.LatLng( 44.716046, 18.825641 ), 'Bazeni Mrkaljevic', 'https://i.imgur.com/qzVw8Bs.png');
+      // addMarker(new google.maps.LatLng( 44.717812, 18.874593 ), 'Arheoloski lokalitet');
+      addMarker(new google.maps.LatLng( 44.709143, 18.885420 ), 'Atik Dzamija', 'https://i.imgur.com/I55y2RP.png');
+      addMarker(new google.maps.LatLng( 44.708749, 18.945117 ), 'Crkva Pokrova Presvete Bogorodice', 'https://i.imgur.com/hWWolpm.png');
+      addMarker(new google.maps.LatLng( 44.635474, 18.984785 ), 'Kupaliste Mezgrajsko jezero', 'https://i.imgur.com/qzVw8Bs.png');
+      addMarker(new google.maps.LatLng( 44.601686, 19.017547 ), 'Dzamija Stari Teocak', 'https://i.imgur.com/I55y2RP.png');
+      addMarker(new google.maps.LatLng( 44.588604, 18.962860 ), 'Dzamija Snjeznica', 'https://i.imgur.com/I55y2RP.png');
+      addMarker(new google.maps.LatLng( 44.590998, 18.954411 ), 'Plaza Snjeznica', 'https://i.imgur.com/qzVw8Bs.png');
+      addMarker(new google.maps.LatLng( 44.600968, 18.949059 ), 'UR FONTANA Restoran', 'https://i.imgur.com/yccyPDl.png')
+      addMarker(new google.maps.LatLng( 44.599000, 18.927497 ), 'Crkva Rodjenja Presvete Bogorodica', 'https://i.imgur.com/hWWolpm.png');
+      addMarker(new google.maps.LatLng( 44.648012, 18.815189 ), 'Crkva Prepodobnog Sisoja Velikog', 'https://i.imgur.com/hWWolpm.png');
+
+
+    </script>
+
+  </body>
+
+</html>
